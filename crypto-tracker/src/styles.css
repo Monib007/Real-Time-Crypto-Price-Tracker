@@ -1,0 +1,39 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  tr:hover {
+    background-color: #f9f9f9;
+  }
+  
+  td img {
+    border-radius: 50%;
+  }
+  
+  @media (max-width: 768px) {
+    th, td {
+      font-size: 12px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    table {
+      font-size: 10px;
+    }
+    th, td {
+      padding: 8px;
+    }
+  }
+  
