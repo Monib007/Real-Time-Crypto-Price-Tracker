@@ -96,7 +96,7 @@ To run this project in production:
   2. Set up a production server to serve both the frontend and backend, or use tools like nginx to serve the static files and proxy requests to the backend API.
 
 # Acknowledgments
-  CoinGecko API: Used for fetching real-time cryptocurrency data.
-  React: Frontend framework.
-  Redux Toolkit: Used for managing application state.
-  Chart.js: Used for displaying cryptocurrency price charts.
+  - CoinGecko API: Used for fetching real-time cryptocurrency data.
+  - React: Frontend framework.
+  - Redux Toolkit: Used for managing application state.
+  - Chart.js: Used for displaying cryptocurrency price charts.
