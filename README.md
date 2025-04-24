@@ -30,7 +30,7 @@ Prerequisites
 
 # Installation
 1. Clone the repository:
-    git clone <repo_url>
+    git clone (https://github.com/Monib007/Real-Time-Crypto-Price-Tracker.git)
     cd crypto-tracker
    
 2. Navigate to the backend directory and install dependencies:
