@@ -1,39 +1,71 @@
+/* Basic table styles */
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-  }
-  
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+th, td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #f9f9f9;
+}
+
+td img {
+  border-radius: 50%;
+}
+
+/* Responsive design for mobile/tablet */
+@media (max-width: 768px) {
   th, td {
-    padding: 10px;
-    text-align: center;
-    border: 1px solid #ddd;
+    font-size: 12px;
   }
-  
-  th {
-    background-color: #f2f2f2;
-  }
-  
-  tr:hover {
-    background-color: #f9f9f9;
-  }
-  
   td img {
-    border-radius: 50%;
+    width: 24px;
+    height: 24px;
   }
-  
-  @media (max-width: 768px) {
-    th, td {
-      font-size: 12px;
-    }
+}
+
+@media (max-width: 480px) {
+  table {
+    font-size: 10px;
   }
-  
-  @media (max-width: 480px) {
-    table {
-      font-size: 10px;
-    }
-    th, td {
-      padding: 8px;
-    }
+  th, td {
+    padding: 8px;
   }
-  
+  td img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Pagination styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 5px 10px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.pagination span {
+  font-weight: bold;
+}
