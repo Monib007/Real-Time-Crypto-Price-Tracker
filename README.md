@@ -30,28 +30,28 @@ Prerequisites
 
 # Installation
 1. Clone the repository:
-    git clone (https://github.com/Monib007/Real-Time-Crypto-Price-Tracker.git)
-    cd crypto-tracker
+    - git clone (https://github.com/Monib007/Real-Time-Crypto-Price-Tracker.git)
+    - cd crypto-tracker
    
 2. Navigate to the backend directory and install dependencies:
-    cd backend
-    npm install
+    - cd backend
+    - npm install
    
 3.Navigate to the frontend directory and install dependencies:
-    cd frontend
-    npm install
+    - cd frontend
+    - npm install
     
 # Backend Setup (Express)
 The backend is responsible for fetching cryptocurrency data from the CoinGecko API and serving it through a local API endpoint. The backend uses CORS to allow cross-origin requests from the frontend.
 
 **Running the Backend**
   1. Navigate to the backend folder:
-      cd backend
+      - cd backend
      
   2. Create a .env file in the backend folder and add your environment variables (if any).
      
   3. Start the backend server:
-      npm start
+      - npm start
      
   4.The backend will run on http://localhost:5000.
 
@@ -63,34 +63,12 @@ The frontend fetches the data from the backend, displays it in a responsive tabl
 
 **Running the Frontend**
 1. Navigate to the frontend folder:
-    cd frontend
+    - cd frontend
    
 2. Start the frontend development server:
-    npm run dev
+    - npm run dev
    
 3.The frontend will run on http://localhost:3000.
-
-# Folder Structure
-
-/crypto-tracker
-├── /backend
-│   ├── index.js              # Express backend server
-│   ├── package.json           # Backend dependencies
-│   ├── .env                  # Environment variables (if any)
-│
-├── /frontend
-│   ├── /src
-│   │   ├── /components        # React components
-│   │   ├── /redux             # Redux state management
-│   │   ├── App.tsx            # Main app component
-│   │   ├── index.tsx          # React entry point
-│   │   ├── CryptoTable.tsx    # Table for showing cryptocurrencies
-│   │   ├── CryptoDetails.tsx  # Coin details page with chart
-│   ├── package.json           # Frontend dependencies
-│   ├── tsconfig.json          # TypeScript configuration
-│   ├── vite.config.ts         # Vite configuration
-│
-└── README.md                 # This README file
 
 # Project Workflow
 **Frontend (React)**
