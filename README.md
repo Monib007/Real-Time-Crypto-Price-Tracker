@@ -1,4 +1,4 @@
-**Crypto Tracker**
+# Crypto Tracker
 This project is a full-stack cryptocurrency price tracker built using React, Redux Toolkit, Express.js, and the CoinGecko API. It allows users to view live cryptocurrency prices, track their market cap, volume, and price changes over different time periods, as well as see historical price charts for individual coins.
 
 # Features
