@@ -47,8 +47,8 @@ const CryptoDetails: React.FC = () => {
     }
   }, [coinDetails, coinHistory]);
 
-  const data = coinHistory?.prices?.map(([timestamp, price]: [number, number]) => price);
-  const labels = coinHistory?.prices?.map(([timestamp, price]: [number, number]) =>
+  const data = coinHistory?.prices?.map(([price]: [number, number]) => price);
+  const labels = coinHistory?.prices?.map(([timestamp]: [number, number]) =>
     new Date(timestamp).toLocaleDateString()
   );
   
