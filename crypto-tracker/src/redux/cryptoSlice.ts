@@ -1,12 +1,25 @@
-// src/redux/cryptoSlice.ts
-
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
+export interface CoinSummary {
+  id: string;
+  name: string;
+  image: string;
+  current_price: number;
+  market_cap: number;
+  total_volume: number;
+  circulating_supply: number;
+  price_change_percentage_1h_in_currency: number;
+  price_change_percentage_24h_in_currency: number;
+  price_change_percentage_7d_in_currency: number;
+}
 
 interface CoinDetails {
   id: string;
   name: string;
   symbol: string;
-  image: { small: string };
+  image: {
+    small: string;
+  };
   market_data: {
     current_price: {
       usd: number;
@@ -21,91 +34,104 @@ interface CoinDetails {
 }
 
 interface CoinHistory {
-  prices: [number, number][]; // Array of [timestamp, price] pairs
+  prices: [number, number][];
 }
 
 interface CryptoState {
+  coins: CoinSummary[] | null;
   coinDetails: CoinDetails | null;
   coinHistory: CoinHistory | null;
-  status: 'loading' | 'succeeded' | 'failed';
-  coins: CoinDetails[] | null;
+  coinListStatus: 'loading' | 'succeeded' | 'failed';
+  coinDetailsStatus: 'loading' | 'succeeded' | 'failed';
+  coinHistoryStatus: 'loading' | 'succeeded' | 'failed';
 }
 
 const initialState: CryptoState = {
+  coins: null,
   coinDetails: null,
   coinHistory: null,
-  status: 'loading',
-  coins: null,
+  coinListStatus: 'loading',
+  coinDetailsStatus: 'loading',
+  coinHistoryStatus: 'loading',
 };
 
-// Define the async thunk to fetch coin details
+// Fetch list of coins (summary)
+export const fetchCryptoData = createAsyncThunk<CoinSummary[], number>(
+  'crypto/fetchCryptoData',
+  async (page) => {
+    const response = await fetch(
+      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=${page}`
+    );
+    return await response.json();
+  }
+);
+
+// Fetch full coin details
 export const fetchCoinDetails = createAsyncThunk<CoinDetails, string>(
   'crypto/fetchCoinDetails',
-  async (coinId: string) => {
+  async (coinId) => {
     const response = await fetch(`https://api.coingecko.com/api/v3/coins/${coinId}`);
     const data = await response.json();
     return data;
   }
 );
 
-// Define the async thunk to fetch coin history (prices)
+// Fetch coin history for chart
 export const fetchCoinHistory = createAsyncThunk<CoinHistory, string>(
   'crypto/fetchCoinHistory',
-  async (coinId: string) => {
-    const response = await fetch(`https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=usd&days=7`);
+  async (coinId) => {
+    const response = await fetch(
+      `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=usd&days=7`
+    );
     const data = await response.json();
     return data;
   }
 );
 
-// New async thunk for fetching multiple coins (e.g., top 10 by market cap)
-export const fetchCryptoData = createAsyncThunk<CoinDetails[], void>(
-  'crypto/fetchCryptoData',
-  async () => {
-    const response = await fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1`);
-    const data = await response.json();
-    return data;
-  }
-);
-
+// Slice
 const cryptoSlice = createSlice({
   name: 'crypto',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchCoinDetails.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(fetchCoinDetails.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.coinDetails = action.payload;
-      })
-      .addCase(fetchCoinDetails.rejected, (state) => {
-        state.status = 'failed';
-        state.coinDetails = null;
-      })
-      .addCase(fetchCoinHistory.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(fetchCoinHistory.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.coinHistory = action.payload;
-      })
-      .addCase(fetchCoinHistory.rejected, (state) => {
-        state.status = 'failed';
-        state.coinHistory = null;
-      })
+      // List
       .addCase(fetchCryptoData.pending, (state) => {
-        state.status = 'loading';
+        state.coinListStatus = 'loading';
       })
       .addCase(fetchCryptoData.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.coinListStatus = 'succeeded';
         state.coins = action.payload;
       })
       .addCase(fetchCryptoData.rejected, (state) => {
-        state.status = 'failed';
+        state.coinListStatus = 'failed';
         state.coins = null;
+      })
+
+      // Details
+      .addCase(fetchCoinDetails.pending, (state) => {
+        state.coinDetailsStatus = 'loading';
+      })
+      .addCase(fetchCoinDetails.fulfilled, (state, action) => {
+        state.coinDetailsStatus = 'succeeded';
+        state.coinDetails = action.payload;
+      })
+      .addCase(fetchCoinDetails.rejected, (state) => {
+        state.coinDetailsStatus = 'failed';
+        state.coinDetails = null;
+      })
+
+      // History
+      .addCase(fetchCoinHistory.pending, (state) => {
+        state.coinHistoryStatus = 'loading';
+      })
+      .addCase(fetchCoinHistory.fulfilled, (state, action) => {
+        state.coinHistoryStatus = 'succeeded';
+        state.coinHistory = action.payload;
+      })
+      .addCase(fetchCoinHistory.rejected, (state) => {
+        state.coinHistoryStatus = 'failed';
+        state.coinHistory = null;
       });
   },
 });
